@@ -79,6 +79,20 @@ The API will be available at `http://localhost:8000`.
 }
 ```
 
+## Challenges Faced
+During development, we encountered and solved several key challenges:
+1.  **Content Limitations**: The file `eng_1.pdf` could not be processed because it contained only answers, whereas our system is designed to extract questions.
+2.  **Handwriting & Structure**: The text in some documents could not be structured correctly into the target JSON format due to handwriting issues that degraded OCR quality.
+3.  **Dependency Management**: Installing external tools like Poppler on Windows is complex for users.
+    *   *Solution*: We switched from `pdf2image` (requires Poppler) to `pypdfium2` (pip-installable) and added auto-detection for Tesseract paths.
+4.  **Complex Parsing Logic**: Extracting questions that span multiple lines or have options, while ignoring noise.
+    *   *Solution*: We developed a robust regex-based parser that groups text by numbered sections and captures full question blocks, handling typos in headers (e.g., "Seclion").
+
+## Limitations & Notes
+> [!NOTE]
+> **Specific Optimization**: This microservice is specifically tuned and verified using **`2_1_1 english.pdf`**.
+> It is designed primarily for **extracting numbered questions** from exam-style PDF documents. It may not perform as well on other document types (like invoices or unformatted text) without further tuning of the parser logic.
+
 ## Assumptions
 - The PDF contains selectable text or images suitable for OCR.
 - Questions start with a number followed by a separator (e.g., "1.", "2)").
