@@ -54,7 +54,7 @@ The API will be available at `http://localhost:8000`.
 }
 ```
 
-### 2. Get Results
+### 2. Get Results (paste the docid here from /POST)
 **Endpoint**: `GET /results/{doc_id}`
 
 **Response**:
